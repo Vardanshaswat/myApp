@@ -8,7 +8,7 @@ const BlogCard = ({ title, description, image, onClick }) => {
       className="border rounded-lg p-4 shadow hover:shadow-lg transition cursor-pointer"
     >
       <img
-        src={image || "https://source.unsplash.com/random/400x200"}
+        src={image || "/firstimage.jpg"}
         alt="Blog Image"
         className="w-full h-48 object-cover rounded mb-2"
       />

@@ -25,7 +25,7 @@ export default function BlogHomepage() {
           {[1, 2, 3].map((id) => (
             <div key={id} className="border rounded-lg p-4 shadow">
               <img
-                src={`https://source.unsplash.com/random/400x200?sig=${id}`}
+                src={`/firstimage.jpg`}
                 alt="Blog"
                 className="rounded mb-2"
               />
@@ -52,7 +52,7 @@ export default function BlogHomepage() {
           {[4, 5].map((id) => (
             <div key={id} className="border rounded-lg p-4 shadow">
               <img
-                src={`https://source.unsplash.com/random/400x200?sig=${id}`}
+                src={`/firstimage.jpg`}
                 alt="Featured Blog"
                 className="rounded mb-2"
               />
