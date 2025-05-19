@@ -2,10 +2,10 @@
 import { useRouter } from "next/navigation";
 import BlogCard from "../(components)/BlogCard";
 
-export default function BlogHomepage() {
+export default function BlogHomepage(): JSX.Element {
   const router = useRouter();
 
-  const handleRedirect = () => {
+  const handleRedirect = (): void => {
     router.push("/myblog");
   };
 
@@ -22,7 +22,7 @@ export default function BlogHomepage() {
       <section className="p-8">
         <h2 className="text-2xl font-semibold mb-4">Popular Blogs</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {[1, 2, 3].map((id) => (
+          {[1, 2, 3].map((id: number) => (
             <div key={id} className="border rounded-lg p-4 shadow">
               <img
                 src={`/firstimage.jpg`}
@@ -49,7 +49,7 @@ export default function BlogHomepage() {
       <section className="p-8">
         <h2 className="text-2xl font-semibold mb-4">Featured Blogs</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {[4, 5].map((id) => (
+          {[4, 5].map((id: number) => (
             <div key={id} className="border rounded-lg p-4 shadow">
               <img
                 src={`/firstimage.jpg`}
