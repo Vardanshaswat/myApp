@@ -1,15 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 
 export default function MyBlogsPage() {
+  const { data: session, status } = useSession();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchBlogs = async () => {
+      const author = session?.user?.name || session?.user?.email;
+      if (!author) return;
+
       try {
-        const res = await fetch("/api/blog");
+        const res = await fetch(
+          `/api/blog?author=${encodeURIComponent(author)}`
+        );
         const data = await res.json();
         setBlogs(data.blogs || []);
       } catch (error) {
@@ -19,14 +26,21 @@ export default function MyBlogsPage() {
       }
     };
 
-    fetchBlogs();
-  }, []);
+    if (status === "authenticated") {
+      fetchBlogs();
+    }
+  }, [session, status]);
 
-  if (loading) return <p className="p-4">Loading blogs...</p>;
+  if (status === "loading" || loading)
+    return <p className="p-4">Loading blogs...</p>;
 
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">My Blogs</h1>
+      <p className="text-sm text-gray-500 mb-4">
+        Logged in as: {session?.user?.name || session?.user?.email}
+      </p>
+
       {blogs.length === 0 ? (
         <p>No blogs found.</p>
       ) : (

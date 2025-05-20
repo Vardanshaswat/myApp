@@ -1,5 +1,6 @@
 import Blog from "@/app/(models)/blog";
 import { NextResponse } from "next/server";
+// import { connectToDB } from "@/utils/db"; // optional: if you need to ensure DB connection
 
 export async function POST(req) {
   try {
@@ -13,9 +14,18 @@ export async function POST(req) {
   }
 }
 
-export async function GET() {
+export async function GET(req) {
   try {
-    const blogs = await Blog.find({});
+    // Parse URL query
+    const { searchParams } = new URL(req.url);
+    const author = searchParams.get("author");
+
+    let query = {};
+    if (author) {
+      query.author = author;
+    }
+
+    const blogs = await Blog.find(query);
     return NextResponse.json({ blogs });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

@@ -1,19 +1,28 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSession } from "next-auth/react"; // ✅ NextAuth hook
 
 const BlogForm = () => {
   const router = useRouter();
+  const { data: session, status } = useSession(); // ✅ Fetch user session
 
   const [blogData, setBlogData] = useState({
     title: "",
     description: "",
     category: "",
     content: "",
-    author: "",
+    author: "", // will be auto-set
     ageFlagged: false,
   });
+
+  // ✅ Set author name when session is available
+  useEffect(() => {
+    if (session?.user?.name) {
+      setBlogData((prev) => ({ ...prev, author: session.user.name }));
+    }
+  }, [session]);
 
   const handleChange = (e) => {
     const value =
@@ -29,6 +38,11 @@ const BlogForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!session) {
+      alert("You must be logged in to post.");
+      return;
+    }
+
     const res = await fetch("/api/blog", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -37,84 +51,104 @@ const BlogForm = () => {
 
     if (res.ok) {
       alert("Blog created!");
-      router.push("/myblog"); // or wherever you want to go after
+      router.push("/myblog");
     } else {
       alert("Failed to create blog.");
     }
   };
 
+  const handleCancel = () => {
+    router.back();
+  };
+
   return (
-    <div className="flex justify-center">
-      <form onSubmit={handleSubmit} className="space-y-4 p-4 w-full max-w-md">
-        <h3 className="text-lg font-semibold">Create your blog</h3>
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-4xl mx-auto">
+        {/* Form Card */}
+        <div className="bg-white shadow-md rounded-lg p-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Title */}
+            <input
+              id="title"
+              name="title"
+              type="text"
+              onChange={handleChange}
+              value={blogData.title}
+              required
+              placeholder="Title"
+              className="w-full border p-3 rounded"
+            />
 
-        <label htmlFor="title">Title</label>
-        <input
-          id="title"
-          name="title"
-          type="text"
-          onChange={handleChange}
-          value={blogData.title}
-          className="w-full p-2 border"
-          required
-        />
+            {/* Description */}
+            <input
+              id="description"
+              name="description"
+              type="text"
+              onChange={handleChange}
+              value={blogData.description}
+              placeholder="Description"
+              className="w-full border p-3 rounded"
+            />
 
-        <label htmlFor="description">Description</label>
-        <input
-          id="description"
-          name="description"
-          type="text"
-          onChange={handleChange}
-          value={blogData.description}
-          className="w-full p-2 border"
-        />
+            {/* Category */}
+            <input
+              id="category"
+              name="category"
+              type="text"
+              onChange={handleChange}
+              value={blogData.category}
+              placeholder="Category"
+              className="w-full border p-3 rounded"
+            />
 
-        <label htmlFor="category">Category</label>
-        <input
-          id="category"
-          name="category"
-          type="text"
-          onChange={handleChange}
-          value={blogData.category}
-          className="w-full p-2 border"
-        />
+            {/* Content */}
+            <textarea
+              id="content"
+              name="content"
+              onChange={handleChange}
+              value={blogData.content}
+              rows={10}
+              placeholder="Content"
+              className="w-full border p-3 rounded"
+            />
 
-        <label htmlFor="content">Content</label>
-        <textarea
-          id="content"
-          name="content"
-          onChange={handleChange}
-          value={blogData.content}
-          className="w-full p-2 border"
-        />
+            {/* Age Flag */}
+            <label className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="ageFlagged"
+                name="ageFlagged"
+                checked={blogData.ageFlagged}
+                onChange={handleChange}
+              />
+              <span>Age Restricted</span>
+            </label>
 
-        <label htmlFor="author">Author</label>
-        <input
-          id="author"
-          name="author"
-          type="text"
-          onChange={handleChange}
-          value={blogData.author}
-          className="w-full p-2 border"
-        />
+            {/* Author Display (read-only) */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Author (auto-filled)
+              </label>
+              <input
+                type="text"
+                value={blogData.author}
+                readOnly
+                className="w-full border p-3 rounded bg-gray-100 text-gray-700"
+              />
+            </div>
 
-        <label className="flex items-center space-x-2">
-          <input
-            type="checkbox"
-            name="ageFlagged"
-            checked={blogData.ageFlagged}
-            onChange={handleChange}
-          />
-          <span>Age Flagged</span>
-        </label>
-
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          Submit
-        </button>
-      </form>
+            {/* Buttons */}
+            <div className="flex justify-end space-x-4">
+              <button type="button" onClick={handleCancel}>
+                Cancel
+              </button>
+              <button type="submit" disabled={status !== "authenticated"}>
+                Publish
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

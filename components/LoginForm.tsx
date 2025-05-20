@@ -27,9 +27,10 @@ export default function LoginForm(): JSX.Element {
         return;
       }
 
-      router.replace("/dashboard");
+      router.replace("/homepage");
     } catch (error) {
       console.error("Login error:", error);
+      setError("Something went wrong.");
     }
   };
 
@@ -40,14 +41,24 @@ export default function LoginForm(): JSX.Element {
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <input
-            onChange={(e) => setEmail(e.target.value)}
-            type="text"
+            name="email"
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setError("");
+            }}
+            type="email"
             placeholder="Email"
+            required
           />
           <input
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setError("");
+            }}
             type="password"
             placeholder="Password"
+            required
           />
           <button
             type="submit"
