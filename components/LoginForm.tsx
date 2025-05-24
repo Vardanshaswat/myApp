@@ -35,47 +35,76 @@ export default function LoginForm(): JSX.Element {
   };
 
   return (
-    <div className="grid place-items-center h-screen">
-      <div className="shadow-lg p-5 rounded-lg border-t-4 border-green-400">
-        <h1 className="text-xl font-bold my-4">Login</h1>
+    <div className="min-h-screen bg-white text-gray-900 flex items-center justify-center px-4">
+      <div className="w-full max-w-md bg-[#e8dfd5] p-8 rounded-xl shadow-md border border-gray-200">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+          Login
+        </h1>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-          <input
-            name="email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setError("");
-            }}
-            type="email"
-            placeholder="Email"
-            required
-          />
-          <input
-            name="password"
-            onChange={(e) => {
-              setPassword(e.target.value);
-              setError("");
-            }}
-            type="password"
-            placeholder="Password"
-            required
-          />
-          <button
-            type="submit"
-            className="bg-green-600 text-white font-bold cursor-pointer px-6 py-2"
-          >
-            Login
-          </button>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Email
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError("");
+              }}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Password
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              required
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setError("");
+              }}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+            />
+          </div>
 
           {error && (
-            <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
+            <div className="text-sm text-red-700 bg-red-100 px-4 py-2 rounded-md">
               {error}
             </div>
           )}
 
-          <Link className="text-sm mt-3 text-right" href="/register">
-            Don't have an account? <span className="underline">Register</span>
-          </Link>
+          <button
+            type="submit"
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-lg transition"
+          >
+            Login
+          </button>
+
+          <p className="text-sm text-center text-gray-700">
+            Don&apos;t have an account?{" "}
+            <Link href="/register" className="text-purple-600 hover:underline">
+              Register
+            </Link>
+          </p>
         </form>
       </div>
     </div>

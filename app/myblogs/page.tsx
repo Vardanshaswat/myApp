@@ -35,25 +35,37 @@ export default function MyBlogsPage() {
     return <p className="p-4">Loading blogs...</p>;
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">My Blogs</h1>
-      <p className="text-sm text-gray-500 mb-4">
-        Logged in as: {session?.user?.name || session?.user?.email}
+    <div className="p-6 bg-[url('/new1.jpg')] bg-cover bg-center  backdrop-blur-sm min-h-screen">
+      <h1 className="text-3xl font-bold text-indigo-700 mb-4 drop-shadow-sm">
+        My Blogs
+      </h1>
+      <p className="text-sm text-gray-600 mb-6">
+        Logged in as:{" "}
+        <span className="font-medium">
+          {session?.user?.name || session?.user?.email}
+        </span>
       </p>
 
       {blogs.length === 0 ? (
-        <p>No blogs found.</p>
+        <p className="text-gray-500 italic">No blogs found.</p>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-6">
           {blogs.map((blog) => (
-            <div key={blog._id} className="border p-4 rounded-lg shadow">
-              <h2 className="text-xl font-semibold">{blog.title}</h2>
-              <p className="text-gray-600">{blog.description}</p>
-              <p className="text-sm text-gray-400">By {blog.author}</p>
-              <p className="mt-2">{blog.content}</p>
-              <span className="inline-block mt-2 text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
-                Category: {blog.category}
-              </span>
+            <div
+              key={blog._id}
+              className="bg-white/90 border border-gray-200 p-6 rounded-xl shadow-md hover:shadow-lg transition"
+            >
+              <h2 className="text-2xl font-semibold text-indigo-800 mb-1">
+                {blog.title}
+              </h2>
+              <p className="text-gray-700 mb-2">{blog.description}</p>
+              <p className="text-sm text-gray-500 mb-2">By {blog.author}</p>
+              <p className="text-gray-800">{blog.content}</p>
+              <div className="mt-4">
+                <span className="inline-block bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full shadow-sm">
+                  Category: {blog.category}
+                </span>
+              </div>
             </div>
           ))}
         </div>
