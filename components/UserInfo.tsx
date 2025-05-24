@@ -8,17 +8,25 @@ export default function UserInfo(): JSX.Element {
   const { data: session } = useSession() as { data: Session | null };
 
   return (
-    <div className="grid place-items-center h-screen">
-      <div className="shadow-lg p-8 bg-zinc-300/10 flex flex-col gap-2 my-6">
-        <div>
-          Name: <span className="font-bold">{session?.user?.name}</span>
+    <div className="grid place-items-center h-screen bg-gradient-to-b from-[#fefefe] to-[#f5f3f0] px-4">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 border border-gray-200">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+          Your Profile
+        </h2>
+
+        <div className="text-gray-700 mb-4">
+          <span className="block font-semibold">Name:</span>
+          <span className="text-gray-900">{session?.user?.name}</span>
         </div>
-        <div>
-          Email: <span className="font-bold">{session?.user?.email}</span>
+
+        <div className="text-gray-700 mb-6">
+          <span className="block font-semibold">Email:</span>
+          <span className="text-gray-900">{session?.user?.email}</span>
         </div>
+
         <button
           onClick={() => signOut()}
-          className="bg-red-500 text-white font-bold px-6 py-2 mt-3"
+          className="w-full bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-700 transition duration-200 shadow-md"
         >
           Log Out
         </button>

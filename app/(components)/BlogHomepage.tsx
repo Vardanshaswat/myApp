@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-// Removed lucide-react import to fix dependency error
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,213 +12,149 @@ export default function BlogHomepage(): JSX.Element {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen bg-gradient-to-b from-[#fefefe] to-[#f5f3f0] text-gray-900">
       {/* Header */}
-      <header className="bg-[#e8dfd5] py-4 px-6 flex items-center justify-between">
-        <div className="font-bold text-lg">Blog Website</div>
-        <nav className="hidden md:flex space-x-8">
-          <Link href="/" className="hover:underline">
-            Home
-          </Link>
-          <Link href="/about" className="hover:underline">
-            About
-          </Link>
-          <Link href="/contact" className="hover:underline">
-            Contact
-          </Link>
-        </nav>
-        <div className="flex items-center">
-          <span className="mr-2">Search</span>
-          <span className="inline-block w-5 h-5">🔍</span>
+      <header className="backdrop-blur bg-white/80 py-4 px-6 shadow-md border-b border-gray-200 sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <div className="text-2xl font-bold text-gray-800 tracking-tight">
+            Blog<span className="text-purple-600">Sphere</span>
+          </div>
+          <nav className="hidden md:flex space-x-8 text-gray-700 font-medium">
+            <Link href="/" className="hover:text-purple-600 transition">
+              Home
+            </Link>
+            <Link href="/about" className="hover:text-purple-600 transition">
+              About
+            </Link>
+            <Link href="/contact" className="hover:text-purple-600 transition">
+              Contact
+            </Link>
+          </nav>
+          <div className="hidden md:flex items-center space-x-2 text-gray-600">
+            <span className="font-medium">Search</span>
+            <span className="text-lg">🔍</span>
+          </div>
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 py-8">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
         {/* Blog Title */}
-        <div className="text-center mb-12">
-          <p className="text-purple-600 mb-2">Our Blog</p>
-          <h1 className="text-4xl font-bold mb-3">Stories & Ideas</h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+        <div className="text-center mb-20">
+          <p className="text-purple-600 text-sm uppercase font-semibold tracking-widest mb-2">
+            Our Blog
+          </p>
+          <h1 className="text-5xl font-extrabold mb-4 tracking-tight">
+            Stories & Ideas
+          </h1>
+          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
             Explore breathtaking landscapes, iconic landmarks, and hidden gems
-            around the globe
+            around the globe.
           </p>
         </div>
 
-        {/* Featured Article and Top Stories */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-          {/* Main Featured Article */}
-          <div>
-            <div className="mb-4">
-              <Image
-                src="/fijiimage.jpg"
-                alt="Mount Fuji with pagoda"
-                width={600}
-                height={400}
-                className="rounded-md object-cover w-full h-[300px]"
-              />
-            </div>
-            <div className="mb-2">
-              <span className="uppercase text-purple-600 text-sm font-medium tracking-wider">
+        {/* Featured & Top Stories */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24">
+          {/* Featured */}
+          <div className="rounded-xl overflow-hidden shadow-lg bg-white">
+            <Image
+              src="/fijiimage.jpg"
+              alt="Mount Fuji"
+              width={600}
+              height={400}
+              className="object-cover w-full h-[300px]"
+            />
+            <div className="p-6">
+              <span className="text-purple-600 text-xs font-bold uppercase tracking-wide">
                 Travel
               </span>
+              <h2 className="text-2xl font-bold mt-2 mb-3">
+                Unveiling The Majestic Beauty Of Mount Fuji
+              </h2>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                A journey to Japan's iconic symbol and natural wonder. Discover
+                the rich history, breathtaking landscapes, and cultural
+                significance of this iconic landmark.
+              </p>
             </div>
-            <h2 className="text-2xl font-bold mb-2">
-              Unveiling The Majestic Beauty Of Mount Fuji
-            </h2>
-            <p className="text-gray-600 text-sm mb-3">
-              A journey to Japan's iconic symbol and natural wonder. Discover
-              the rich history, breathtaking landscapes, and cultural
-              significance of this iconic landmark
-            </p>
           </div>
 
           {/* Top Stories */}
           <div>
-            <h3 className="text-xl font-bold mb-6">Top Stories</h3>
-
+            <h3 className="text-2xl font-semibold mb-6">Top Stories</h3>
             <div className="space-y-6">
-              {/* Story 1 */}
-              <div className="flex gap-4">
-                <div className="flex-none">
-                  <span className="text-gray-400 text-xl font-light">1</span>
-                </div>
-                <div className="flex-grow">
-                  <h4 className="font-bold mb-1">
-                    Mountains and Boat: A Perfect Harmony
-                  </h4>
-                  <p className="text-gray-500 text-sm">
-                    John Smith • 24 Jan 2023
-                  </p>
-                </div>
-                <div className="flex-none">
+              {[1, 2, 3].map((story, i) => (
+                <div className="flex gap-4" key={i}>
+                  <div className="text-purple-300 text-xl font-bold w-5">
+                    {story}
+                  </div>
+                  <div className="flex-grow">
+                    <h4 className="font-semibold mb-1">
+                      {i === 0 && "Mountains and Boat: A Perfect Harmony"}
+                      {i === 1 &&
+                        "Unveiling the Timeless Charm of Old Street Buildings"}
+                      {i === 2 && "Whispering Trees and the Enchanting Moon"}
+                    </h4>
+                    <p className="text-gray-500 text-sm">
+                      John Smith • 24 Jan 2023
+                    </p>
+                  </div>
                   <Image
-                    src="/mountainboat.jpg"
-                    alt="Mountains and boat"
+                    src={i === 1 ? "/ny.jpg" : "/mountainboat.jpg"}
+                    alt="Story"
                     width={80}
                     height={80}
-                    className="rounded-md object-cover"
+                    className="rounded-lg object-cover flex-none"
                   />
                 </div>
-              </div>
-
-              {/* Story 2 */}
-              <div className="flex gap-4">
-                <div className="flex-none">
-                  <span className="text-gray-400 text-xl font-light">2</span>
-                </div>
-                <div className="flex-grow">
-                  <h4 className="font-bold mb-1">
-                    Unveiling the Timeless Charm of Old Street Buildings
-                  </h4>
-                  <p className="text-gray-500 text-sm">
-                    John Smith • 16 Jan 2023
-                  </p>
-                </div>
-                <div className="flex-none">
-                  <Image
-                    src="/ny.jpg"
-                    alt="Old street buildings"
-                    width={80}
-                    height={80}
-                    className="rounded-md object-cover"
-                  />
-                </div>
-              </div>
-
-              {/* Story 3 */}
-              <div className="flex gap-4">
-                <div className="flex-none">
-                  <span className="text-gray-400 text-xl font-light">3</span>
-                </div>
-                <div className="flex-grow">
-                  <h4 className="font-bold mb-1">
-                    Whispering Trees and the Enchanting Moon
-                  </h4>
-                  <p className="text-gray-500 text-sm">
-                    John Smith • 24 Jan 2023
-                  </p>
-                </div>
-                <div className="flex-none">
-                  <Image
-                    src="/mountainboat.jpg"
-                    alt="Trees and moon"
-                    width={80}
-                    height={80}
-                    className="rounded-md object-cover"
-                  />
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Additional Featured Articles */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          {/* Article 1 */}
-          <div>
-            <div className="mb-4">
+        {/* Additional Articles */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24">
+          {[1, 2].map((_, i) => (
+            <div
+              key={i}
+              className="bg-white rounded-xl p-6 shadow-md transition-transform hover:-translate-y-1 hover:shadow-lg"
+            >
               <Image
                 src="/ny.jpg"
-                alt="City highway"
+                alt="Blog Visual"
                 width={500}
                 height={300}
-                className="rounded-md object-cover w-full h-[250px]"
+                className="rounded-lg object-cover w-full h-[250px] mb-4"
               />
-            </div>
-            <div className="mb-4">
-              <p className="text-gray-500 text-sm">Candice Wu • 15 Jan 2022</p>
-              <div className="flex items-center justify-between">
-                <h3 className="text-xl font-bold">
-                  The Pulse of the City Unfolds on the Fast Lanes
-                </h3>
-                <span className="inline-block">↗</span>
-              </div>
-            </div>
-            <p className="text-gray-600 text-sm">
-              Embark on an exhilarating ride through the bustling urban
-              highways, where the rhythm of the city echoes in the hum of
-              engines and the dazzling lights of the skyline.
-            </p>
-          </div>
-
-          {/* Article 2 */}
-          <div>
-            <div className="mb-4">
-              <Image
-                src="/ny.jpg"
-                alt="Car under starry sky"
-                width={500}
-                height={300}
-                className="rounded-md object-cover w-full h-[250px]"
-              />
-            </div>
-            <div className="mb-4">
-              <p className="text-gray-500 text-sm">
-                Alex Whitten • 17 Jan 2022
+              <p className="text-gray-400 text-sm mb-1">
+                {i === 0
+                  ? "Candice Wu • 15 Jan 2022"
+                  : "Alex Whitten • 17 Jan 2022"}
               </p>
-              <div className="flex items-center justify-between">
-                <h3 className="text-xl font-bold">
-                  A Cosmic Adventure Underneath the Starlit Canopy
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-xl font-semibold text-gray-800">
+                  {i === 0
+                    ? "The Pulse of the City Unfolds on the Fast Lanes"
+                    : "A Cosmic Adventure Underneath the Starlit Canopy"}
                 </h3>
-                <span className="inline-block">↗</span>
+                <span className="text-gray-500">↗</span>
               </div>
+              <p className="text-gray-600 text-sm">
+                {i === 0
+                  ? "Embark on an exhilarating ride through the bustling urban highways, where the rhythm of the city echoes in the hum of engines and skyline lights."
+                  : "Join us on a celestial journey through the cosmos where mankind, machines, and stars collide under the night sky."}
+              </p>
             </div>
-            <p className="text-gray-600 text-sm">
-              Embark on an extraordinary odyssey as we merge the realms of
-              mankind, automotive marvels, and the awe-inspiring Milky Way. Join
-              us on a celestial journey through the cosmos.
-            </p>
-          </div>
+          ))}
         </div>
 
-        {/* Call to Action */}
-        <section className="bg-gray-100 text-center p-8 rounded-lg mb-16">
-          <h2 className="text-2xl font-semibold mb-2">
+        {/* CTA Section */}
+        <section className="bg-white border rounded-2xl text-center p-10 shadow-xl">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-4">
             Start creating your blog today!
           </h2>
           <button
             onClick={handleRedirect}
-            className="mt-4 bg-black text-white font-medium px-6 py-2 rounded hover:bg-gray-800 transition"
+            className="mt-4 bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 transition duration-200 shadow-md"
           >
             Go to My Blog
           </button>
@@ -227,8 +162,8 @@ export default function BlogHomepage(): JSX.Element {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-100 text-gray-600 p-6 text-center">
-        <p>© 2025 Blog Website. All rights reserved.</p>
+      <footer className="bg-[#fafafa] text-gray-500 text-sm p-6 text-center border-t border-gray-200 mt-10">
+        © 2025 BlogSphere. All rights reserved.
       </footer>
     </div>
   );

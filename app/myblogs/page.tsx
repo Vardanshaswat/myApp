@@ -32,44 +32,50 @@ export default function MyBlogsPage() {
   }, [session, status]);
 
   if (status === "loading" || loading)
-    return <p className="p-4">Loading blogs...</p>;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+        <p className="text-gray-600 text-lg">Loading blogs...</p>
+      </div>
+    );
 
   return (
-    <div className="p-6 bg-[url('/new1.jpg')] bg-cover bg-center  backdrop-blur-sm min-h-screen">
-      <h1 className="text-3xl font-bold text-indigo-700 mb-4 drop-shadow-sm">
-        My Blogs
-      </h1>
-      <p className="text-sm text-gray-600 mb-6">
-        Logged in as:{" "}
-        <span className="font-medium">
-          {session?.user?.name || session?.user?.email}
-        </span>
-      </p>
+    <div className="min-h-screen bg-gray-100 py-12 px-6">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-3xl font-extrabold text-indigo-700 mb-4">
+          My Blogs
+        </h1>
+        <p className="text-sm text-gray-700 mb-8">
+          Logged in as:{" "}
+          <span className="font-semibold">
+            {session?.user?.name || session?.user?.email}
+          </span>
+        </p>
 
-      {blogs.length === 0 ? (
-        <p className="text-gray-500 italic">No blogs found.</p>
-      ) : (
-        <div className="space-y-6">
-          {blogs.map((blog) => (
-            <div
-              key={blog._id}
-              className="bg-white/90 border border-gray-200 p-6 rounded-xl shadow-md hover:shadow-lg transition"
-            >
-              <h2 className="text-2xl font-semibold text-indigo-800 mb-1">
-                {blog.title}
-              </h2>
-              <p className="text-gray-700 mb-2">{blog.description}</p>
-              <p className="text-sm text-gray-500 mb-2">By {blog.author}</p>
-              <p className="text-gray-800">{blog.content}</p>
-              <div className="mt-4">
-                <span className="inline-block bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full shadow-sm">
-                  Category: {blog.category}
-                </span>
+        {blogs.length === 0 ? (
+          <p className="text-gray-500 italic">No blogs found.</p>
+        ) : (
+          <div className="space-y-6">
+            {blogs.map((blog) => (
+              <div
+                key={blog._id}
+                className="bg-white border border-gray-200 rounded-xl shadow-md p-6 hover:shadow-lg transition"
+              >
+                <h2 className="text-2xl font-semibold text-indigo-700 mb-2">
+                  {blog.title}
+                </h2>
+                <p className="text-gray-700 mb-2">{blog.description}</p>
+                <p className="text-sm text-gray-500 mb-4">By {blog.author}</p>
+                <p className="text-gray-800">{blog.content}</p>
+                <div className="mt-4">
+                  <span className="inline-block bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full shadow-sm">
+                    Category: {blog.category}
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

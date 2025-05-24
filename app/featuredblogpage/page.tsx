@@ -13,7 +13,7 @@ export default function FeaturedBlogsPage() {
         const data = await res.json();
         const sortedBlogs = data.blogs
           ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-          .slice(0, 2); // Get the 2 most recent blogs
+          .slice(0, 2);
         setFeaturedBlogs(sortedBlogs || []);
       } catch (error) {
         console.error("Failed to fetch featured blogs:", error);
@@ -25,28 +25,45 @@ export default function FeaturedBlogsPage() {
     fetchFeaturedBlogs();
   }, []);
 
-  if (loading) return <p className="p-4">Loading featured blogs...</p>;
+  if (loading)
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-[#fefefe] to-[#f5f3f0] grid place-items-center text-gray-600 text-lg">
+        Loading featured blogs...
+      </div>
+    );
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Featured Blogs</h1>
-      {featuredBlogs.length === 0 ? (
-        <p>No featured blogs available.</p>
-      ) : (
-        <div className="space-y-4">
-          {featuredBlogs.map((blog) => (
-            <div key={blog._id} className="border p-4 rounded-lg shadow">
-              <h2 className="text-xl font-semibold">{blog.title}</h2>
-              <p className="text-gray-600">{blog.description}</p>
-              <p className="text-sm text-gray-400">By {blog.author}</p>
-              <p className="mt-2">{blog.content}</p>
-              <span className="inline-block mt-2 text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
-                Category: {blog.category}
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
+    <div className="min-h-screen bg-gradient-to-b from-[#fefefe] to-[#f5f3f0] px-6 py-12">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-10">
+          Featured Blogs
+        </h1>
+
+        {featuredBlogs.length === 0 ? (
+          <p className="text-center text-gray-500">
+            No featured blogs available.
+          </p>
+        ) : (
+          <div className="space-y-8">
+            {featuredBlogs.map((blog) => (
+              <div
+                key={blog._id}
+                className="bg-white p-6 rounded-xl shadow-md border border-gray-200 transition hover:shadow-lg"
+              >
+                <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+                  {blog.title}
+                </h2>
+                <p className="text-gray-600 mb-1">{blog.description}</p>
+                <p className="text-sm text-gray-400 mb-3">By {blog.author}</p>
+                <p className="text-gray-700 text-sm mb-3">{blog.content}</p>
+                <span className="inline-block text-xs font-medium bg-purple-100 text-purple-700 px-2 py-1 rounded-full">
+                  Category: {blog.category}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
