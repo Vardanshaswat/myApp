@@ -111,7 +111,7 @@ const BlogForm = () => {
             />
 
             {/* Age Flag */}
-            <label className="flex items-center space-x-2 text-gray-700">
+            {/* <label className="flex items-center space-x-2 text-gray-700">
               <input
                 type="checkbox"
                 id="ageFlagged"
@@ -121,7 +121,7 @@ const BlogForm = () => {
                 className="accent-purple-600"
               />
               <span>Age Restricted</span>
-            </label>
+            </label> */}
 
             {/* Author Display (read-only) */}
             <div>
