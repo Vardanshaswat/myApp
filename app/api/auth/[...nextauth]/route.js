@@ -13,29 +13,53 @@ export const authOptions = {
       async authorize(credentials) {
         const { email, password } = credentials;
 
+        // ✅ Hardcoded admin credentials
+        const adminEmail = "admin@example.com";
+        const adminPassword = "admin123"; // ideally store in env for security
+
+        // Check if login is with admin credentials
+        if (email === adminEmail && password === adminPassword) {
+          return {
+            id: "admin-id",
+            email: adminEmail,
+            role: "admin",
+          };
+        }
+
+        // ✅ Otherwise, proceed with database lookup
         try {
           await connectMongoDB();
           const user = await User.findOne({ email });
 
-          if (!user) {
-            return null;
-          }
+          if (!user) return null;
 
           const passwordsMatch = await bcrypt.compare(password, user.password);
+          if (!passwordsMatch) return null;
 
-          if (!passwordsMatch) {
-            return null;
-          }
-
-          return user;
+          return {
+            id: user._id.toString(),
+            email: user.email,
+            role: "user", // default role
+          };
         } catch (error) {
           console.log("Error: ", error);
+          return null;
         }
       },
     }),
   ],
   session: {
     strategy: "jwt",
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) token.role = user.role;
+      return token;
+    },
+    async session({ session, token }) {
+      if (token?.role) session.user.role = token.role;
+      return session;
+    },
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {

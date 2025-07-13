@@ -2,22 +2,20 @@
 
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { useSession } from "next-auth/react"; // ✅ NextAuth hook
+import { useSession } from "next-auth/react";
 
 const BlogForm = () => {
   const router = useRouter();
-  const { data: session, status } = useSession(); // ✅ Fetch user session
-
+  const { data: session, status } = useSession();
   const [blogData, setBlogData] = useState({
     title: "",
     description: "",
     category: "",
     content: "",
-    author: "", // will be auto-set
+    author: "",
     ageFlagged: false,
   });
 
-  // ✅ Set author name when session is available
   useEffect(() => {
     if (session?.user?.name) {
       setBlogData((prev) => ({ ...prev, author: session.user.name }));
@@ -62,10 +60,10 @@ const BlogForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-white/70 py-8 backdrop-blur-sm">
       <div className="max-w-4xl mx-auto">
         {/* Form Card */}
-        <div className="bg-white shadow-md rounded-lg p-6">
+        <div className="bg-white/90 shadow-md rounded-lg p-6 border border-gray-200">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Title */}
             <input
@@ -76,7 +74,7 @@ const BlogForm = () => {
               value={blogData.title}
               required
               placeholder="Title"
-              className="w-full border p-3 rounded"
+              className="w-full border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 p-3 rounded text-gray-800 placeholder-gray-400"
             />
 
             {/* Description */}
@@ -87,7 +85,7 @@ const BlogForm = () => {
               onChange={handleChange}
               value={blogData.description}
               placeholder="Description"
-              className="w-full border p-3 rounded"
+              className="w-full border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 p-3 rounded text-gray-800 placeholder-gray-400"
             />
 
             {/* Category */}
@@ -98,7 +96,7 @@ const BlogForm = () => {
               onChange={handleChange}
               value={blogData.category}
               placeholder="Category"
-              className="w-full border p-3 rounded"
+              className="w-full border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 p-3 rounded text-gray-800 placeholder-gray-400"
             />
 
             {/* Content */}
@@ -109,24 +107,25 @@ const BlogForm = () => {
               value={blogData.content}
               rows={10}
               placeholder="Content"
-              className="w-full border p-3 rounded"
+              className="w-full border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 p-3 rounded text-gray-800 placeholder-gray-400"
             />
 
             {/* Age Flag */}
-            <label className="flex items-center space-x-2">
+            {/* <label className="flex items-center space-x-2 text-gray-700">
               <input
                 type="checkbox"
                 id="ageFlagged"
                 name="ageFlagged"
                 checked={blogData.ageFlagged}
                 onChange={handleChange}
+                className="accent-purple-600"
               />
               <span>Age Restricted</span>
-            </label>
+            </label> */}
 
             {/* Author Display (read-only) */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Author (auto-filled)
               </label>
               <input
@@ -139,10 +138,18 @@ const BlogForm = () => {
 
             {/* Buttons */}
             <div className="flex justify-end space-x-4">
-              <button type="button" onClick={handleCancel}>
+              <button
+                type="button"
+                onClick={handleCancel}
+                className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition"
+              >
                 Cancel
               </button>
-              <button type="submit" disabled={status !== "authenticated"}>
+              <button
+                type="submit"
+                disabled={status !== "authenticated"}
+                className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition disabled:opacity-50"
+              >
                 Publish
               </button>
             </div>
