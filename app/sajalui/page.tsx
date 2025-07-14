@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { Hero } from "../(components)/hero";
 import { PopularBlogs } from "../(components)/popular-blogs";
-import { WhyStarted } from "../(components)/why-started";
+// import { WhyStarted } from "../(components)/why-started";
 import { FeaturedBlogs } from "../(components)/featured-blogs";
 import { Partners } from "../(components)/partners";
 import { Footer } from "../(components)/footer";
@@ -35,7 +35,7 @@ export default function BlogPage() {
       </div>
 
       <PopularBlogs />
-      <WhyStarted />
+      {/* <WhyStarted /> */}
       <FeaturedBlogs />
       <Partners />
       {/* <Newsletter /> */}

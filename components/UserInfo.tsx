@@ -3,6 +3,7 @@
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
+import { JSX } from "react";
 
 export default function UserInfo(): JSX.Element {
   const { data: session } = useSession() as { data: Session | null };

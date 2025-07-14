@@ -32,13 +32,8 @@ export function Navbar() {
         </Link>
       </div>
       <div className="flex items-center space-x-2">
-        <Button variant="ghost" className="text-white hover:text-white/80">
-          Login
-        </Button>
-        <Button
-          variant="outline"
-          className="bg-white text-blue-600 hover:bg-white/90 border-none"
-        >
+        <Button className="text-white hover:text-white/80">Login</Button>
+        <Button className="bg-white text-blue-600 hover:bg-white/90 border-none">
           Sign up
         </Button>
       </div>

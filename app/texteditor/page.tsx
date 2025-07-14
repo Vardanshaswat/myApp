@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <div>
       <h1>Simple Text Editor</h1>
-      <TextEditor />
+      {/* <TextEditor /> */}
     </div>
   );
 };

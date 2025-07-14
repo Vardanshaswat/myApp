@@ -1,7 +1,7 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { signIn, useSession } from "next-auth/react";
@@ -24,12 +24,11 @@ function AuthForm() {
 
   const changeVariant = useCallback(() => {
     variant === "Login" ? setVariant("Register") : setVariant("Login");
-  }, [variant, setVariant]);
+  }, [variant]);
 
   const {
     register,
     handleSubmit,
-
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -40,8 +39,8 @@ function AuthForm() {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
     setIsLoading(true);
+
     if (variant === "Register") {
       axios
         .post("/api/register", data)
@@ -49,26 +48,25 @@ function AuthForm() {
         .catch(() => toast.error("Please fill the form carefully"))
         .finally(() => {
           setIsLoading(false);
-          if (data) toast.success("successfully registered");
+          toast.success("Successfully registered");
         });
     }
+
     if (variant === "Login") {
-      signIn("credentials", {
-        ...data,
-        redirect: false,
-      })
+      signIn("credentials", { ...data, redirect: false })
         .then((callback) => {
-          if (callback?.error) toast.error("invalid Credentials");
-          if (callback?.ok && !callback?.error)
-            toast.success("Sucessfully logged in");
-          router.push("/website");
+          if (callback?.error) toast.error("Invalid credentials");
+          if (callback?.ok && !callback?.error) {
+            toast.success("Successfully logged in");
+            router.push("/website");
+          }
         })
         .finally(() => setIsLoading(false));
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full p-4 ">
+    <div className="flex flex-col items-center justify-center w-full h-full p-4">
       <div className="max-w-[32rem]">
         <div className="flex flex-col items-center mb-8 text-white">
           <h1 className="mb-2 text-2xl font-bold max-w-[10rem] text-center">
@@ -97,12 +95,12 @@ function AuthForm() {
         >
           {variant === "Register" && (
             <div>
-              <Label htmlFor="name">NAME</Label>
+              <p className="text-sm font-semibold text-white mb-1">Name</p>
               <Input
                 disabled={isLoading}
                 id="name"
                 {...register("name", { required: true })}
-                className="mt-4 bg-transparent focus-visible:ring-green-100 placeholder:text-slate-100"
+                className="mt-2 bg-transparent focus-visible:ring-green-100 placeholder:text-slate-100"
                 type="text"
                 placeholder="Name"
               />
@@ -115,13 +113,13 @@ function AuthForm() {
           )}
 
           <div>
-            <Label htmlFor="email">EMAIL</Label>
+            <p className="text-sm font-semibold text-white mb-1">Email</p>
             <Input
               disabled={isLoading}
               id="email"
               {...register("email", { required: true })}
-              className="mt-4 bg-transparent focus-visible:ring-green-100 placeholder:text-slate-100"
-              type="text"
+              className="mt-2 bg-transparent focus-visible:ring-green-100 placeholder:text-slate-100"
+              type="email"
               placeholder="Email"
             />
             {errors.email && (
@@ -130,13 +128,14 @@ function AuthForm() {
               </span>
             )}
           </div>
+
           <div>
-            <Label htmlFor="password">PASSWORD</Label>
+            <p className="text-sm font-semibold text-white mb-1">Password</p>
             <Input
               disabled={isLoading}
               id="password"
               {...register("password", { required: true })}
-              className="mt-4 bg-transparent focus-visible:ring-green-100 placeholder:text-slate-100"
+              className="mt-2 bg-transparent focus-visible:ring-green-100 placeholder:text-slate-100"
               type="password"
               placeholder="Password"
             />
@@ -146,6 +145,7 @@ function AuthForm() {
               </span>
             )}
           </div>
+
           <Button
             disabled={isLoading}
             type="submit"
@@ -158,12 +158,12 @@ function AuthForm() {
         {variant === "Login" && (
           <div className="mt-4 text-white">
             <p>
-              Dont have an Account?{" "}
+              Don’t have an Account?{" "}
               <a
                 className="cursor-pointer hover:text-[#70D460]"
                 onClick={changeVariant}
               >
-                click here
+                Click here
               </a>
             </p>
           </div>

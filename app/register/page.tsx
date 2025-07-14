@@ -2,7 +2,7 @@
 
 import RegisterForm from "@/components/RegisterForm";
 import { useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { JSX, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function RegisterPage(): JSX.Element {

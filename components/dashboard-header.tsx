@@ -5,7 +5,6 @@ import type { User } from "next-auth";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,6 +15,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import DashboardSidebar from "./dashboard-sidebar";
+import { Button } from "@/app/(components)/ui/button";
 
 interface DashboardHeaderProps {
   user: User;
@@ -38,13 +38,13 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
         <div className="flex items-center gap-4">
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
+              <Button className="md:hidden">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-[240px] sm:w-[300px]">
-              <DashboardSidebar />
+              {/* <DashboardSidebar /> */}
             </SheetContent>
           </Sheet>
           <Link href="/dashboard" className="flex items-center gap-2">
@@ -83,7 +83,7 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
             Bookmarks
           </Link>
         </nav>
-        <div className="flex items-center gap-4">
+        {/* <div className="flex items-center gap-4">
           <Button asChild variant="ghost" size="sm" className="hidden md:flex">
             <Link href="/dashboard/new-article">Write Article</Link>
           </Button>
@@ -125,7 +125,7 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        </div>
+        </div> */}
       </div>
     </header>
   );

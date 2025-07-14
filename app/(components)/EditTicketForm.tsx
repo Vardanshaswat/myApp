@@ -96,7 +96,7 @@ const EditTicketForm = ({ ticket }) => {
           onChange={handleChange}
           required={true}
           value={formData.description}
-          rows="5"
+          rows={5}
         />
         <label>Category</label>
         <select

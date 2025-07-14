@@ -1,7 +1,8 @@
 // app/api/myblog/route.js
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/db";
-import Blog from "@/lib/models/blog";
+// import connectDB from "@/lib/db";
+
+import Blog from "@/app/(models)/blog";
 
 // POST = Create a new blog
 export async function POST(req) {

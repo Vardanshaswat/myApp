@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, JSX } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 

@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+// import { Badge } from "@/components/ui/badge";
 
 // This would typically come from your database
 const articles = [
@@ -74,9 +74,9 @@ export default function RecentArticles() {
                 <span>{article.date}</span>
                 <span>•</span>
                 <span>{article.readTime}</span>
-                <Badge variant="secondary" className="ml-auto">
+                {/* <Badge variant="secondary" className="ml-auto">
                   {article.category}
-                </Badge>
+                </Badge> */}
               </div>
               <div className="border-t border-border pt-2 mt-2" />
             </div>
