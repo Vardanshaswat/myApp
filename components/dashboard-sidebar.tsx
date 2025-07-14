@@ -44,7 +44,7 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-[240px] sm:w-[300px]">
-              <DashboardSidebar />
+              {/* <DashboardSidebar /> */}
             </SheetContent>
           </Sheet>
           <Link href="/dashboard" className="flex items-center gap-2">

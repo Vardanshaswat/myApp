@@ -27,6 +27,9 @@ const Dashboard = async () => {
 
   const tickets = data.tickets;
 
+  // const uniqueCategories = [
+  //   ...new Set(tickets?.map(({ category }) => category)),
+  // ];
   const uniqueCategories = [
     ...new Set(tickets?.map(({ category }) => category)),
   ];
@@ -35,7 +38,7 @@ const Dashboard = async () => {
     <div className="p-5">
       <div>
         {tickets &&
-          uniqueCategories?.map((uniqueCategory, categoryIndex) => (
+          uniqueCategories?.map((uniqueCategory: any, categoryIndex) => (
             <div key={categoryIndex} className="mb-4">
               <h2>{uniqueCategory}</h2>
               <div className="lg:grid grid-cols-2 xl:grid-cols-4 ">
@@ -43,8 +46,8 @@ const Dashboard = async () => {
                   .filter((ticket) => ticket.category === uniqueCategory)
                   .map((filteredTicket, _index) => (
                     <TicketCard
-                      id={_index}
-                      key={_index}
+                      // id={_index}
+                      // key={_index}
                       ticket={filteredTicket}
                     />
                   ))}

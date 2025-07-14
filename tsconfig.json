@@ -1,9 +1,12 @@
 {
   "compilerOptions": {
+    "types": ["next-auth"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
     },
+    "target": "es2015",
+    "downlevelIteration": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -23,19 +26,21 @@
       }
     ]
   },
+
   // "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"],
   "include": [
     "next-env.d.ts",
-    ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx",
-    "app/register/page.jsx",
-    "app/login/page.jsx",
-    "app/dashboard/page.jsx",
-    "app/register/page.jsx",
-    "app/api/auth/[...nextauth]/route.js",
-    "app/api/register/route.js",
-    "app/api/userExists/route.js"
+    "types/**/*.d.ts",
+    // "app/register/page.jsx",
+    // "app/login/page.jsx",
+    // "app/dashboard/page.jsx",
+    // "app/register/page.jsx",
+    // "app/api/auth/[...nextauth]/route.ts",
+    // "app/api/register/route.js",
+    // "app/api/userExists/route.js"
+    ".next/types/**/*.ts"
   ]
 }
