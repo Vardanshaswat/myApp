@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* <SessionWrapper>
+        <SessionWrapper>
           {" "}
           {/* ✅ Now it's safe */}
         <div className="flex flex-col h-screen max-h-screen">
@@ -33,7 +33,7 @@ export default function RootLayout({
             {children}
           </div>
         </div>
-        {/* </SessionWrapper> */} *
+       </SessionWrapper>
       </body>
     </html>
   );
