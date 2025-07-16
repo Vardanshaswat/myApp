@@ -11,13 +11,16 @@ export default function MyBlogsPage() {
   useEffect(() => {
     const fetchBlogs = async () => {
       const author = 'fi';
+console.log(author, 'console from office');
       if (!author) return;
 
       try {
         const res = await fetch(
           `/api/blog?author=${encodeURIComponent(author)}`
         );
+console.log(res)
         const data = await res.json();
+console.log(data)
         setBlogs(data.blogs || []);
       } catch (error) {
         console.error("Failed to fetch blogs:", error);
@@ -26,10 +29,10 @@ export default function MyBlogsPage() {
       }
     };
 
-    if (status === "authenticated") {
+    
       fetchBlogs();
-    }
-  }, [session, status]);
+    
+  }, []);
 
   if (status === "loading" || loading)
     return (
