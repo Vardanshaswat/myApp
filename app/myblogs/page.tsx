@@ -10,7 +10,7 @@ export default function MyBlogsPage() {
 
   useEffect(() => {
     const fetchBlogs = async () => {
-      const author = session?.user?.name || session?.user?.email;
+      const author = 'fi';
       if (!author) return;
 
       try {
