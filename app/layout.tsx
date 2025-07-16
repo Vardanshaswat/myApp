@@ -2,7 +2,7 @@
 import Nav from "./(components)/Nav";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import SessionWrapper from "./(components)/SessionWrapper";
+import SessionWrapper from "./(components)/Sessionwrapper";
 
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
