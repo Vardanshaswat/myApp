@@ -22,7 +22,7 @@ export async function GET(req) {
 
     let query = {};
     if (author) {
-      query.author = author;
+      query.author = 'fn';
     }
 
     const blogs = await Blog.find(query);
